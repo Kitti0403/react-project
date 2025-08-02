@@ -1,18 +1,18 @@
-import React, { useState, FormEvent } from "react";
+import React, { useState, FormEvent, useCallback, memo } from "react";
 import { useTranslation } from "react-i18next";
 
 interface ContactFormProps {
   className?: string;
 }
 
-export const ContactForm: React.FC<ContactFormProps> = ({ className }) => {
+export const ContactForm: React.FC<ContactFormProps> = memo(({ className }) => {
   const { t } = useTranslation();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<
     "idle" | "success" | "error"
   >("idle");
 
-  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = useCallback(async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsSubmitting(true);
     setSubmitStatus("idle");
@@ -60,7 +60,7 @@ export const ContactForm: React.FC<ContactFormProps> = ({ className }) => {
     } finally {
       setIsSubmitting(false);
     }
-  };
+  }, []);
 
   const getButtonText = () => {
     if (isSubmitting) return `${t("form.submitSending")} 📤`;
@@ -166,4 +166,6 @@ export const ContactForm: React.FC<ContactFormProps> = ({ className }) => {
       </button>
     </form>
   );
-};
+});
+
+ContactForm.displayName = "ContactForm";

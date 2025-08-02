@@ -1,27 +1,35 @@
 import "./App.css";
-import { ContactForm } from "./ContactForm";
-import { ServicesGallery } from "./ServicesGallery";
 import { useTranslation } from "react-i18next";
 import i18n from "./i18n";
 import IconButton from "@mui/material/IconButton";
 import LanguageIcon from "@mui/icons-material/Language";
-import { useState, useEffect } from "react";
+import { useState, useEffect, lazy, Suspense, useCallback, memo } from "react";
 
-function App() {
+// Lazy load components to reduce initial bundle size
+const ContactForm = lazy(() =>
+  import("./ContactForm").then((module) => ({ default: module.ContactForm }))
+);
+const ServicesGallery = lazy(() =>
+  import("./ServicesGallery").then((module) => ({
+    default: module.ServicesGallery,
+  }))
+);
+
+const App = memo(() => {
   const { t } = useTranslation();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
-  const handleLangSwitch = () => {
+  const handleLangSwitch = useCallback(() => {
     i18n.changeLanguage(i18n.language === "en" ? "hu" : "en");
-  };
+  }, []);
 
-  const toggleMobileMenu = () => {
+  const toggleMobileMenu = useCallback(() => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
-  };
+  }, [isMobileMenuOpen]);
 
-  const closeMobileMenu = () => {
+  const closeMobileMenu = useCallback(() => {
     setIsMobileMenuOpen(false);
-  };
+  }, []);
 
   // Close mobile menu on escape key press and handle body scroll
   useEffect(() => {
@@ -51,7 +59,7 @@ function App() {
       window.removeEventListener("resize", handleResize);
       document.body.style.overflow = "unset";
     };
-  }, [isMobileMenuOpen]);
+  }, [isMobileMenuOpen, closeMobileMenu]);
   return (
     <>
       <header>
@@ -213,7 +221,11 @@ function App() {
           </div>
         </section>
 
-        <ServicesGallery />
+        <Suspense
+          fallback={<div className="loading-spinner">Loading services...</div>}
+        >
+          <ServicesGallery />
+        </Suspense>
 
         <section id="contact" className="contact-section">
           <div className="contact-wrapper">
@@ -243,7 +255,13 @@ function App() {
               </div>
             </div>
             <div className="contact-form">
-              <ContactForm />
+              <Suspense
+                fallback={
+                  <div className="loading-spinner">Loading contact form...</div>
+                }
+              >
+                <ContactForm />
+              </Suspense>
             </div>
           </div>
         </section>
@@ -309,6 +327,8 @@ function App() {
       </footer>
     </>
   );
-}
+});
+
+App.displayName = "App";
 
 export default App;

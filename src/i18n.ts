@@ -17,11 +17,12 @@ const resources = {
       },
       about: {
         title: "About This Journey",
-        desc: "Hi! I'm Kitti from Hungary, currently in my fifth year at technical school. This website is my personal project where I'm exploring React and TypeScript while building something meaningful - a platform for my art commission goals.",
+        desc: "Hi! I'm Kitti from Hungary, currently in my fifth year in a technical school. This website is my personal project where I'm exploring React and TypeScript while building something meaningful - a platform for my art commission goals.",
         built: "What I've Built Here",
-        gallery: "🎨 Interactive art gallery with drag-to-scroll functionality",
+        gallery:
+          "🎨 Interactive goal gallery with drag-to-scroll functionality",
         form: "📩 Working contact form for messages",
-        mobile: "📱 Mobile-responsive design optimized for 16:9 displays",
+        mobile: "📱 Mobile-responsive design",
         personal: "🥳 Personal touch with honest thoughts",
         infinite: "♻️ Infinite scroll carousel for smooth user experience",
       },
@@ -49,7 +50,7 @@ const resources = {
           "Responsive UI/UX design optimized for all screen sizes and devices.",
         exams: "Exams",
         examsDesc:
-          "I'm in my fifth year at a technical school. THE LAST EXAM IS COMIIING!",
+          "In my fifth year in a technical school. THE LAST EXAM IS COMIIING!",
         commissions: "Art Commissions",
         commissionsDesc:
           "My goal is to build a website for commissioning me and my partner for art work.",
@@ -113,9 +114,9 @@ const resources = {
         title: "Az Utam",
         desc: "Szia! Kitti vagyok Magyarországról, jelenleg ötödéves technikumi tanuló. Ez a weboldal a személyes projektem, ahol Reactet és TypeScriptet tanulok, miközben valami értelmeset építek – egy platformot a művészeti megbízásaimhoz.",
         built: "Amit Itt Készítettem",
-        gallery: "🎨 Interaktív galéria húzható görgetéssel",
+        gallery: "🎨 Interaktív cél galéria húzható görgetéssel",
         form: "📩 Működő kapcsolatfelvételi űrlap",
-        mobile: "📱 Mobilbarát, 16:9-re optimalizált design",
+        mobile: "📱 Mobilbarát design",
         personal: "🥳 Személyes hangvétel, őszinte gondolatokkal",
         infinite: "♻️ Végtelen görgetés a gördülékeny élményért",
       },

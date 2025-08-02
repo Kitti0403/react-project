@@ -1,8 +1,8 @@
-import React from "react";
+import React, { memo } from "react";
 import { useDragToScroll } from "./useDragToScroll";
 import { useTranslation } from "react-i18next";
 
-export const ServicesGallery: React.FC = () => {
+export const ServicesGallery: React.FC = memo(() => {
   const dragRef = useDragToScroll();
   const { t } = useTranslation();
 
@@ -11,14 +11,14 @@ export const ServicesGallery: React.FC = () => {
       <h2>{t("services.title")}</h2>
       <div className="services-container" ref={dragRef}>
         <div className="service-card">
-          <div className="service-icon">🛠️</div>
-          <h3>{t("services.development")}</h3>
-          <p>{t("services.developmentDesc")}</p>
+          <div className="service-icon">🎨</div>
+          <h3>{t("services.design")}</h3>
+          <p>{t("services.designDesc")}</p>
         </div>
         <div className="service-card">
           <div className="service-icon">📱</div>
-          <h3>{t("services.design")}</h3>
-          <p>{t("services.designDesc")}</p>
+          <h3>{t("services.development")}</h3>
+          <p>{t("services.developmentDesc")}</p>
         </div>
         <div className="service-card">
           <div className="service-icon">📚</div>
@@ -39,4 +39,6 @@ export const ServicesGallery: React.FC = () => {
       <div className="drag-hint">{t("dragHint")}</div>
     </section>
   );
-};
+});
+
+ServicesGallery.displayName = "ServicesGallery";
