@@ -19,7 +19,7 @@ A beautiful, responsive React application built with TypeScript and Vite, optimi
 
 ## 🖥️ Live Demo
 
-[View Live Demo](https://your-username.github.io/react-project) _(Update this link after deployment)_
+[View Live Demo](https://kitti0403.github.io/react-project)
 
 ## 📸 Screenshots
 
