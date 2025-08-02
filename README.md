@@ -192,14 +192,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - [ ] Add Progressive Web App (PWA) features
 - [ ] Implement i18n for multiple languages
 
-## 💬 Support
-
-If you have any questions or need help getting started:
-
-- Open an [issue](https://github.com/your-username/react-project/issues)
-- Email: your-email@example.com
-- Twitter: [@yourusername](https://twitter.com/yourusername)
-
 ## ⭐ Show Your Support
 
 Give a ⭐ if this project helped you!
