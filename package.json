@@ -5,15 +5,15 @@
   "type": "module",
   "description": "A modern React application optimized for 16:9 widescreen displays, built with TypeScript and Vite",
   "keywords": ["react", "typescript", "vite", "responsive", "16:9", "modern", "frontend"],
-  "author": "Your Name <your.email@example.com>",
+  "author": "Kitti0403 <annus.kitti@gmail.com>",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/your-username/react-project.git"
+    "url": "https://github.com/Kitti0403/react-project.git"
   },
-  "homepage": "https://your-username.github.io/react-project",
+  "homepage": "https://Kitti0403.github.io/react-project",
   "bugs": {
-    "url": "https://github.com/your-username/react-project/issues"
+    "url": "https://github.com/Kitti0403/react-project/issues"
   },
   "scripts": {
     "dev": "vite",
