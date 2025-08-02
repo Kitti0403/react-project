@@ -1,17 +1,58 @@
-import './App.css'
+import "./App.css";
+import { ContactForm } from "./ContactForm";
+import { ServicesGallery } from "./ServicesGallery";
+import { useTranslation } from "react-i18next";
+import i18n from "./i18n";
+import IconButton from "@mui/material/IconButton";
+import LanguageIcon from "@mui/icons-material/Language";
 
 function App() {
+  const { t } = useTranslation();
+  const handleLangSwitch = () => {
+    i18n.changeLanguage(i18n.language === "en" ? "hu" : "en");
+  };
   return (
     <>
       <header>
-        <nav>
-          <h1>My React App</h1>
-          <ul>
-            <li><a href="#home">Home</a></li>
-            <li><a href="#about">About</a></li>
-            <li><a href="#services">Services</a></li>
-            <li><a href="#contact">Contact</a></li>
+        <nav
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+          }}
+        >
+          <h1>Kitti's Gallery</h1>
+          <ul
+            style={{
+              display: "flex",
+              gap: "1.5rem",
+              listStyle: "none",
+              margin: 0,
+            }}
+          >
+            <li>
+              <a href="#home">{t("navbar.home")}</a>
+            </li>
+            <li>
+              <a href="#about">{t("navbar.about")}</a>
+            </li>
+            <li>
+              <a href="#services">{t("navbar.goals")}</a>
+            </li>
+            <li>
+              <a href="#contact">{t("navbar.contact")}</a>
+            </li>
           </ul>
+          <IconButton
+            color="primary"
+            onClick={handleLangSwitch}
+            aria-label="switch language"
+          >
+            <LanguageIcon />
+            <span style={{ marginLeft: 4, fontSize: 14 }}>
+              {i18n.language === "en" ? "HU" : "EN"}
+            </span>
+          </IconButton>
         </nav>
       </header>
 
@@ -19,11 +60,17 @@ function App() {
         <section id="home" className="hero">
           <div className="hero-content">
             <div className="hero-text">
-              <h2>Welcome to Modern React Development</h2>
-              <p>Build fast, scalable applications with React 18, TypeScript, and Vite. Experience the power of modern web development with cutting-edge tools and best practices.</p>
+              <h2>{t("hero.title")}</h2>
+              <p>{t("hero.desc")}</p>
               <div className="hero-buttons">
-                <button className="btn-primary">Get Started</button>
-                <button className="btn-secondary">Learn More</button>
+                <a
+                  href="https://react.dev"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn-secondary"
+                >
+                  {t("hero.doc")}
+                </a>
               </div>
             </div>
             <div className="hero-image">
@@ -54,108 +101,81 @@ function App() {
         <section id="about" className="two-column">
           <div className="content-wrapper">
             <div className="column-left">
-              <h2>About This Project</h2>
-              <p>This application demonstrates a modern React setup with TypeScript and Vite, optimized for 16:9 widescreen displays. It showcases semantic HTML5 structure and responsive design principles.</p>
+              <h2>{t("about.title")}</h2>
+              <p>{t("about.desc")}</p>
               <article>
-                <h3>Key Features</h3>
+                <h3>{t("about.built")}</h3>
                 <ul>
-                  <li>⚡ Lightning-fast Vite development server</li>
-                  <li>🔷 TypeScript for type safety</li>
-                  <li>📱 Responsive 16:9 optimized layout</li>
-                  <li>🎨 Modern CSS with semantic HTML5</li>
-                  <li>🚀 Hot Module Replacement (HMR)</li>
-                  <li>📦 Optimized production builds</li>
+                  <li>{t("about.gallery")}</li>
+                  <li>{t("about.form")}</li>
+                  <li>{t("about.mobile")}</li>
+                  <li>{t("about.personal")}</li>
+                  <li>{t("about.infinite")}</li>
                 </ul>
               </article>
             </div>
             <div className="column-right">
               <div className="stats-grid">
                 <div className="stat-card">
-                  <h4>Fast</h4>
-                  <p>Sub-second HMR updates</p>
+                  <h4>{t("stats.personal")}</h4>
+                  <p>{t("stats.personalDesc")}</p>
                 </div>
                 <div className="stat-card">
-                  <h4>Modern</h4>
-                  <p>Latest React 18 features</p>
+                  <h4>{t("stats.interactive")}</h4>
+                  <p>{t("stats.interactiveDesc")}</p>
                 </div>
                 <div className="stat-card">
-                  <h4>TypeSafe</h4>
-                  <p>Full TypeScript support</p>
+                  <h4>{t("stats.functional")}</h4>
+                  <p>{t("stats.functionalDesc")}</p>
                 </div>
                 <div className="stat-card">
-                  <h4>Optimized</h4>
-                  <p>Production-ready builds</p>
+                  <h4>{t("stats.creative")}</h4>
+                  <p>{t("stats.creativeDesc")}</p>
+                </div>
+                <div className="stat-card">
+                  <h4>{t("stats.free")}</h4>
+                  <p>{t("stats.freeDesc")}</p>
+                </div>
+                <div className="stat-card">
+                  <h4>{t("stats.responsive")}</h4>
+                  <p>{t("stats.responsiveDesc")}</p>
                 </div>
               </div>
             </div>
           </div>
         </section>
 
-        <section id="services" className="services-grid">
-          <h2>What We Offer</h2>
-          <div className="services-container">
-            <div className="service-card">
-              <div className="service-icon">🛠️</div>
-              <h3>Development</h3>
-              <p>Full-stack React applications with modern tooling and best practices.</p>
-            </div>
-            <div className="service-card">
-              <div className="service-icon">🎨</div>
-              <h3>Design</h3>
-              <p>Responsive UI/UX design optimized for all screen sizes and devices.</p>
-            </div>
-            <div className="service-card">
-              <div className="service-icon">⚡</div>
-              <h3>Performance</h3>
-              <p>Optimized applications with fast loading times and smooth interactions.</p>
-            </div>
-            <div className="service-card">
-              <div className="service-icon">🔒</div>
-              <h3>Security</h3>
-              <p>Secure applications with TypeScript safety and modern security practices.</p>
-            </div>
-          </div>
-        </section>
+        <ServicesGallery />
 
         <section id="contact" className="contact-section">
           <div className="contact-wrapper">
             <div className="contact-info">
-              <h2>Get In Touch</h2>
-              <p>Ready to start your next React project? Let's discuss how we can help you build something amazing.</p>
+              <h2>{t("contact.title")}</h2>
+              <p>{t("contact.desc")}</p>
               <div className="contact-details">
                 <div className="contact-item">
-                  <strong>Email:</strong> hello@reactapp.com
+                  <strong>{t("contact.email")}:</strong> annus.kitti@gmail.com
                 </div>
                 <div className="contact-item">
-                  <strong>Phone:</strong> +1 (555) 123-4567
+                  <strong>{t("contact.willRead")}</strong>{" "}
+                  {t("contact.willReadVal")}
                 </div>
                 <div className="contact-item">
-                  <strong>Location:</strong> San Francisco, CA
+                  <strong>{t("contact.location")}:</strong>{" "}
+                  {t("contact.locationVal")}
                 </div>
+              </div>
+              <div className="author-note">
+                <p>
+                  <em>{t("contact.attach")}</em>
+                </p>
+                <p>
+                  <em>{t("contact.memes")}</em>
+                </p>
               </div>
             </div>
             <div className="contact-form">
-              <form>
-                <div className="form-row">
-                  <div className="form-group">
-                    <label htmlFor="name">Name:</label>
-                    <input type="text" id="name" name="name" required />
-                  </div>
-                  <div className="form-group">
-                    <label htmlFor="email">Email:</label>
-                    <input type="email" id="email" name="email" required />
-                  </div>
-                </div>
-                <div className="form-group">
-                  <label htmlFor="subject">Subject:</label>
-                  <input type="text" id="subject" name="subject" required />
-                </div>
-                <div className="form-group">
-                  <label htmlFor="message">Message:</label>
-                  <textarea id="message" name="message" rows={5} required></textarea>
-                </div>
-                <button type="submit" className="btn-primary">Send Message</button>
-              </form>
+              <ContactForm />
             </div>
           </div>
         </section>
@@ -164,32 +184,63 @@ function App() {
       <footer>
         <div className="footer-content">
           <div className="footer-section">
-            <h3>My React App</h3>
-            <p>Building the future with React, TypeScript, and modern web technologies.</p>
+            <h3>Kitti's Gallery</h3>
+            <p>
+              Building the future with React, TypeScript, and modern web
+              technologies.
+            </p>
           </div>
           <div className="footer-section">
-            <h4>Quick Links</h4>
+            <h4>{t("footer.quick")}</h4>
             <ul>
-              <li><a href="https://react.dev" target="_blank" rel="noopener noreferrer">React Docs</a></li>
-              <li><a href="https://vitejs.dev" target="_blank" rel="noopener noreferrer">Vite Docs</a></li>
-              <li><a href="https://www.typescriptlang.org/" target="_blank" rel="noopener noreferrer">TypeScript</a></li>
+              <li>
+                <a
+                  href="https://react.dev"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  React Docs
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://vitejs.dev"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Vite Docs
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://www.typescriptlang.org/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  TypeScript
+                </a>
+              </li>
             </ul>
           </div>
           <div className="footer-section">
-            <h4>Connect</h4>
+            <h4>{t("footer.connect")}</h4>
             <div className="social-links">
-              <a href="#" target="_blank" rel="noopener noreferrer">GitHub</a>
-              <a href="#" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-              <a href="#" target="_blank" rel="noopener noreferrer">Twitter</a>
+              <a
+                href="https://github.com/Kitti0403"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {t("footer.github")}
+              </a>
             </div>
           </div>
         </div>
         <div className="footer-bottom">
-          <p>&copy; 2025 My React App. Built with React + TypeScript + Vite.</p>
+          <p>{t("footer.copyright")}</p>
         </div>
       </footer>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
