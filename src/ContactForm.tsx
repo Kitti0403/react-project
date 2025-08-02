@@ -21,6 +21,15 @@ export const ContactForm: React.FC<ContactFormProps> = memo(({ className }) => {
     const formData = new FormData(form);
 
     try {
+      // Check if there's a file and if it's too large (Formspree has limits)
+      const fileInput = formData.get("image") as File;
+      if (fileInput && fileInput.size > 10 * 1024 * 1024) {
+        // 10MB limit
+        throw new Error(
+          "Image file is too large. Please select a file smaller than 10MB."
+        );
+      }
+
       // Using Formspree - create a form at https://formspree.io and replace with your endpoint
       const response = await fetch("https://formspree.io/f/xpwljdad", {
         method: "POST",
@@ -135,12 +144,12 @@ export const ContactForm: React.FC<ContactFormProps> = memo(({ className }) => {
           type="file"
           id="image"
           name="image"
-          accept="image/*"
+          accept=".jpg,.jpeg,.png,.gif,.webp,image/*"
           className="image-upload-input"
           disabled={isSubmitting}
         />
         <div className="upload-info">
-          <small>{t("form.imageInfo")}</small>
+          <small>{t("form.imageInfo")} (Max: 10MB, JPG/PNG/GIF/WebP)</small>
         </div>
       </div>
 
