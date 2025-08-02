@@ -4,7 +4,15 @@
   "version": "1.0.0",
   "type": "module",
   "description": "A modern React application optimized for 16:9 widescreen displays, built with TypeScript and Vite",
-  "keywords": ["react", "typescript", "vite", "responsive", "16:9", "modern", "frontend"],
+  "keywords": [
+    "react",
+    "typescript",
+    "vite",
+    "responsive",
+    "16:9",
+    "modern",
+    "frontend"
+  ],
   "author": "Kitti0403 <annus.kitti@gmail.com>",
   "license": "MIT",
   "repository": {
@@ -18,7 +26,7 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
-    "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+    "lint": "eslint . --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d dist"
@@ -38,6 +46,7 @@
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.6",
     "gh-pages": "^6.1.1",
+    "globals": "^16.3.0",
     "typescript": "^5.2.2",
     "vite": "^5.2.0"
   }
