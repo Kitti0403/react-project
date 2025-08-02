@@ -5,54 +5,122 @@ import { useTranslation } from "react-i18next";
 import i18n from "./i18n";
 import IconButton from "@mui/material/IconButton";
 import LanguageIcon from "@mui/icons-material/Language";
+import { useState, useEffect } from "react";
 
 function App() {
   const { t } = useTranslation();
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
   const handleLangSwitch = () => {
     i18n.changeLanguage(i18n.language === "en" ? "hu" : "en");
   };
+
+  const toggleMobileMenu = () => {
+    setIsMobileMenuOpen(!isMobileMenuOpen);
+  };
+
+  const closeMobileMenu = () => {
+    setIsMobileMenuOpen(false);
+  };
+
+  // Close mobile menu on escape key press and handle body scroll
+  useEffect(() => {
+    const handleEscape = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        closeMobileMenu();
+      }
+    };
+
+    const handleResize = () => {
+      if (window.innerWidth > 1024) {
+        closeMobileMenu();
+      }
+    };
+
+    if (isMobileMenuOpen) {
+      document.addEventListener("keydown", handleEscape);
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "unset";
+    }
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      document.removeEventListener("keydown", handleEscape);
+      window.removeEventListener("resize", handleResize);
+      document.body.style.overflow = "unset";
+    };
+  }, [isMobileMenuOpen]);
   return (
     <>
       <header>
-        <nav
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
-          }}
-        >
-          <h1>Kitti's Gallery</h1>
-          <ul
-            style={{
-              display: "flex",
-              gap: "1.5rem",
-              listStyle: "none",
-              margin: 0,
-            }}
+        <nav className="navbar">
+          <div className="nav-brand">
+            <h1>Kitti's Gallery</h1>
+          </div>
+
+          {/* Mobile menu button */}
+          <button
+            className="mobile-menu-toggle"
+            onClick={toggleMobileMenu}
+            aria-label="Toggle mobile menu"
+            aria-expanded={isMobileMenuOpen}
           >
-            <li>
-              <a href="#home">{t("navbar.home")}</a>
-            </li>
-            <li>
-              <a href="#about">{t("navbar.about")}</a>
-            </li>
-            <li>
-              <a href="#services">{t("navbar.goals")}</a>
-            </li>
-            <li>
-              <a href="#contact">{t("navbar.contact")}</a>
-            </li>
-          </ul>
-          <IconButton
-            color="primary"
-            onClick={handleLangSwitch}
-            aria-label="switch language"
-          >
-            <LanguageIcon />
-            <span style={{ marginLeft: 4, fontSize: 14 }}>
-              {i18n.language === "en" ? "HU" : "EN"}
+            <span className={`hamburger ${isMobileMenuOpen ? "active" : ""}`}>
+              <span></span>
+              <span></span>
+              <span></span>
             </span>
-          </IconButton>
+          </button>
+
+          {/* Mobile menu backdrop */}
+          {isMobileMenuOpen && (
+            <div
+              className="mobile-menu-backdrop"
+              onClick={closeMobileMenu}
+              aria-hidden="true"
+            />
+          )}
+
+          <div className={`nav-menu ${isMobileMenuOpen ? "active" : ""}`}>
+            <ul className="nav-list">
+              <li>
+                <a href="#home" onClick={closeMobileMenu}>
+                  {t("navbar.home")}
+                </a>
+              </li>
+              <li>
+                <a href="#about" onClick={closeMobileMenu}>
+                  {t("navbar.about")}
+                </a>
+              </li>
+              <li>
+                <a href="#services" onClick={closeMobileMenu}>
+                  {t("navbar.goals")}
+                </a>
+              </li>
+              <li>
+                <a href="#contact" onClick={closeMobileMenu}>
+                  {t("navbar.contact")}
+                </a>
+              </li>
+            </ul>
+
+            <div className="nav-actions">
+              <IconButton
+                color="primary"
+                onClick={handleLangSwitch}
+                aria-label="switch language"
+                className="lang-button"
+              >
+                <LanguageIcon />
+                <span style={{ marginLeft: 4, fontSize: 14 }}>
+                  {i18n.language === "en" ? "HU" : "EN"}
+                </span>
+              </IconButton>
+            </div>
+          </div>
         </nav>
       </header>
 

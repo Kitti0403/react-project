@@ -1,32 +1,39 @@
 /* Header Styles */
 header {
   background-color: #1a1a1a;
-  padding: 1rem 0;
+  padding: 0;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   width: 100%;
   position: sticky;
   top: 0;
-  z-index: 100;
+  z-index: 1000;
 }
 
-nav {
+.navbar {
   width: 100%;
   max-width: 1400px;
   margin: 0 auto;
-  padding: 0 2rem;
+  padding: 1rem 2rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
   box-sizing: border-box;
+  position: relative;
 }
 
-nav h1 {
+.nav-brand h1 {
   color: #646cff;
   margin: 0;
   font-size: 1.8rem;
 }
 
-nav ul {
+.nav-menu {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.nav-list {
   list-style: none;
   display: flex;
   gap: 2rem;
@@ -34,15 +41,103 @@ nav ul {
   padding: 0;
 }
 
-nav a {
+.nav-list a {
   color: rgba(255, 255, 255, 0.87);
   text-decoration: none;
   font-weight: 500;
   transition: color 0.25s;
+  padding: 0.5rem 0;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
 }
 
-nav a:hover {
+.nav-list a:hover {
   color: #646cff;
+}
+
+.nav-actions {
+  display: flex;
+  align-items: center;
+}
+
+.lang-button {
+  color: rgba(255, 255, 255, 0.87) !important;
+}
+
+/* Mobile menu toggle button */
+.mobile-menu-toggle {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.75rem;
+  z-index: 1001;
+  min-width: 44px;
+  min-height: 44px;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+
+/* Hamburger icon */
+.hamburger {
+  display: block;
+  width: 25px;
+  height: 20px;
+  position: relative;
+}
+
+.hamburger span {
+  display: block;
+  position: absolute;
+  height: 3px;
+  width: 100%;
+  background: rgba(255, 255, 255, 0.87);
+  border-radius: 2px;
+  opacity: 1;
+  left: 0;
+  transform: rotate(0deg);
+  transition: 0.25s ease-in-out;
+}
+
+.hamburger span:nth-child(1) {
+  top: 0px;
+}
+
+.hamburger span:nth-child(2) {
+  top: 8px;
+}
+
+.hamburger span:nth-child(3) {
+  top: 16px;
+}
+
+.hamburger.active span:nth-child(1) {
+  top: 8px;
+  transform: rotate(135deg);
+}
+
+.hamburger.active span:nth-child(2) {
+  opacity: 0;
+  left: -60px;
+}
+
+.hamburger.active span:nth-child(3) {
+  top: 8px;
+  transform: rotate(-135deg);
+}
+
+/* Mobile menu backdrop */
+.mobile-menu-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 998;
 }
 
 /* Main Content - 16:9 Optimized */
@@ -243,7 +338,7 @@ main {
 .services-container {
   display: flex;
   gap: 2rem;
-  padding: 1rem 2rem 2rem 2rem; /* Increased padding to prevent clipping */
+  padding: 1rem 0 2rem 0; /* Remove all horizontal padding */
   overflow-x: auto;
   overflow-y: hidden;
   scroll-behavior: auto; /* Changed from smooth for infinite scroll */
@@ -252,6 +347,17 @@ main {
   -ms-overflow-style: none; /* Hide scrollbar on IE/Edge */
   cursor: grab;
   user-select: none;
+}
+
+/* Add spacing using a pseudo-element */
+.services-container::before {
+  content: "";
+  flex: 0 0 6rem; /* Increased space to accommodate partial card visibility */
+}
+
+.services-container::after {
+  content: "";
+  flex: 0 0 2rem; /* Creates 2rem space at the end */
 }
 
 /* Hide scrollbar on webkit browsers */
@@ -267,12 +373,6 @@ main {
 /* Ensure cloned cards are styled the same */
 .service-card[data-clone="true"] {
   opacity: 1;
-}
-
-.services-container::before,
-.services-container::after {
-  content: "";
-  flex: 0 0 1rem;
 }
 
 .service-card {
@@ -569,17 +669,88 @@ footer {
   }
 }
 
-@media (max-width: 768px) {
-  nav {
-    flex-direction: column;
-    gap: 1rem;
-    padding: 0 1rem;
+/* Tablet breakpoint */
+@media (max-width: 1024px) {
+  .navbar {
+    padding: 1rem 1.5rem;
   }
 
-  nav ul {
+  .mobile-menu-toggle {
+    display: block;
+  }
+
+  .nav-menu {
+    position: fixed;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(26, 26, 26, 0.98);
+    backdrop-filter: blur(10px);
     flex-direction: column;
-    gap: 1rem;
+    justify-content: center;
+    align-items: center;
+    transition: left 0.3s ease;
+    z-index: 999;
+  }
+
+  .nav-menu.active {
+    left: 0;
+  }
+
+  .nav-list {
+    flex-direction: column;
+    gap: 2rem;
     text-align: center;
+    margin-bottom: 2rem;
+  }
+
+  .nav-list a {
+    font-size: 1.4rem;
+    padding: 1rem;
+    display: block;
+    transition: all 0.3s ease;
+  }
+
+  .nav-list a:hover {
+    color: #646cff;
+    transform: translateY(-2px);
+  }
+
+  .nav-actions {
+    margin-top: 1rem;
+  }
+
+  /* Tablet footer adjustments */
+  footer {
+    padding: 2.5rem 1.5rem 1rem;
+  }
+
+  .footer-content {
+    gap: 1.8rem;
+    margin-bottom: 1.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .navbar {
+    padding: 1rem;
+  }
+
+  .nav-brand h1 {
+    font-size: 1.5rem;
+  }
+
+  .nav-list a {
+    font-size: 1.5rem;
+  }
+
+  .lang-button {
+    font-size: 1.2rem !important;
+  }
+
+  .hero {
+    padding: 2rem 1rem;
   }
 
   .hero-text h2 {
@@ -589,6 +760,18 @@ footer {
   .service-card {
     flex: 0 0 220px;
     padding: 1.5rem;
+  }
+
+  .services-container {
+    padding: 1rem 0 2rem 0; /* Remove horizontal padding on mobile too */
+  }
+
+  .services-container::before {
+    flex: 0 0 4rem; /* Proportional spacing for mobile partial card visibility */
+  }
+
+  .services-container::after {
+    flex: 0 0 1rem; /* Keep end spacing small */
   }
 
   .services-grid h2 {
@@ -605,5 +788,164 @@ footer {
 
   .social-links {
     justify-content: center;
+  }
+
+  /* Mobile footer optimizations */
+  footer {
+    padding: 2rem 1rem 1rem;
+  }
+
+  .footer-content {
+    gap: 1.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .footer-section h3 {
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .footer-section h4 {
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .footer-section p {
+    font-size: 0.9rem;
+    line-height: 1.4;
+    margin-bottom: 0.8rem;
+  }
+
+  .footer-section ul li {
+    margin-bottom: 0.3rem;
+  }
+
+  .footer-section a {
+    font-size: 0.9rem;
+  }
+
+  .footer-bottom {
+    padding-top: 1rem;
+  }
+
+  .footer-bottom p {
+    font-size: 0.8rem;
+  }
+}
+
+/* Small mobile devices */
+@media (max-width: 480px) {
+  .navbar {
+    padding: 0.75rem;
+  }
+
+  .nav-brand h1 {
+    font-size: 1.3rem;
+  }
+
+  .hero-text h2 {
+    font-size: 2rem;
+  }
+
+  .hero-text p {
+    font-size: 1rem;
+  }
+
+  .btn-primary,
+  .btn-secondary {
+    padding: 0.8rem 1.5rem;
+    font-size: 0.9rem;
+  }
+
+  /* Ultra-compact footer for small screens */
+  footer {
+    padding: 1.5rem 0.75rem 0.75rem;
+  }
+
+  .footer-content {
+    gap: 1rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .footer-section {
+    text-align: center;
+  }
+
+  .footer-section h3 {
+    font-size: 1.1rem;
+    margin-bottom: 0.4rem;
+  }
+
+  .footer-section h4 {
+    font-size: 0.95rem;
+    margin-bottom: 0.4rem;
+  }
+
+  .footer-section p {
+    font-size: 0.85rem;
+    line-height: 1.3;
+    margin-bottom: 0.6rem;
+  }
+
+  .footer-section ul li {
+    margin-bottom: 0.2rem;
+  }
+
+  .footer-section a {
+    font-size: 0.85rem;
+  }
+
+  .footer-bottom {
+    padding-top: 0.75rem;
+  }
+
+  .footer-bottom p {
+    font-size: 0.75rem;
+  }
+
+  /* Hide less essential footer content on very small screens */
+  .footer-section:first-child p {
+    display: none;
+  }
+}
+
+/* Accessibility improvements */
+@media (prefers-reduced-motion: reduce) {
+  .nav-menu,
+  .hamburger span,
+  .nav-list a {
+    transition: none;
+  }
+}
+
+/* Focus states for accessibility */
+.mobile-menu-toggle:focus {
+  outline: 2px solid #646cff;
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+.nav-list a:focus {
+  outline: 2px solid #646cff;
+  outline-offset: 2px;
+  color: #646cff;
+  border-radius: 4px;
+}
+
+/* Smooth scrolling for anchor links */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Improve mobile performance */
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Mobile-specific improvements */
+@media (max-width: 1024px) {
+  .nav-menu {
+    will-change: transform;
   }
 }

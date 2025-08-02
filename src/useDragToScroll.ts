@@ -13,20 +13,35 @@ export const useDragToScroll = () => {
 
     // Clone cards for infinite scroll effect
     const setupInfiniteScroll = () => {
-      const cards = element.querySelectorAll(".service-card");
+      const cards = element.querySelectorAll(".service-card:not([data-clone])");
+      if (cards.length === 0) return { totalWidth: 0, cardCount: 0 };
+
       const cardWidth = cards[0]?.getBoundingClientRect().width || 280;
       const gap = 32; // 2rem gap
       const totalWidth = (cardWidth + gap) * cards.length;
 
-      // Clone all cards and append them
-      cards.forEach((card) => {
-        const clone = card.cloneNode(true) as HTMLElement;
-        clone.setAttribute("data-clone", "true");
-        element.appendChild(clone);
-      });
+      // Clear any existing clones
+      const existingClones = element.querySelectorAll('[data-clone="true"]');
+      existingClones.forEach((clone) => clone.remove());
 
-      // Set initial scroll position to show original cards
-      element.scrollLeft = 0;
+      // Clone all cards and append them multiple times for smoother infinite scroll
+      const cloneCount = 3; // Create multiple sets for better infinite effect
+      for (let i = 0; i < cloneCount; i++) {
+        cards.forEach((card) => {
+          const clone = card.cloneNode(true) as HTMLElement;
+          clone.setAttribute("data-clone", "true");
+          element.appendChild(clone);
+        });
+      }
+
+      // Calculate a starting position that shows partial cards on both sides
+      // This creates a better visual indication that the carousel is scrollable
+      const startOffset = cardWidth * 0.3; // Show 30% of a card on the left
+
+      // Use setTimeout to ensure DOM is updated before setting scroll position
+      setTimeout(() => {
+        element.scrollLeft = startOffset;
+      }, 0);
 
       return { totalWidth, cardCount: cards.length };
     };
@@ -34,15 +49,14 @@ export const useDragToScroll = () => {
     const { totalWidth } = setupInfiniteScroll();
 
     const handleInfiniteScroll = () => {
+      if (totalWidth === 0) return;
+
       const scrollPosition = element.scrollLeft;
 
-      // If scrolled past the original cards, reset to beginning
-      if (scrollPosition >= totalWidth) {
+      // Only reset when we've scrolled significantly past one full cycle
+      // This prevents the "stuck" behavior during dragging
+      if (scrollPosition >= totalWidth * 2) {
         element.scrollLeft = scrollPosition - totalWidth;
-      }
-      // If scrolled before the beginning, jump to end of original cards
-      else if (scrollPosition <= 0) {
-        element.scrollLeft = totalWidth + scrollPosition;
       }
     };
 
@@ -69,7 +83,7 @@ export const useDragToScroll = () => {
       const x = e.pageX - element.offsetLeft;
       const walk = (x - startX) * 2; // Scroll speed multiplier
       element.scrollLeft = scrollLeft - walk;
-      handleInfiniteScroll();
+      // Don't call handleInfiniteScroll here to prevent jumping during drag
     };
 
     // Touch events for mobile
@@ -82,7 +96,7 @@ export const useDragToScroll = () => {
       const x = e.touches[0].pageX - element.offsetLeft;
       const walk = (x - startX) * 2;
       element.scrollLeft = scrollLeft - walk;
-      handleInfiniteScroll();
+      // Don't call handleInfiniteScroll here to prevent jumping during drag
     };
 
     const handleTouchEnd = () => {
