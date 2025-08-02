@@ -980,3 +980,148 @@ html {
     transform: rotate(360deg);
   }
 }
+
+/* Light mode overrides */
+@media (prefers-color-scheme: light) {
+  /* Header and Navigation */
+  header {
+    background-color: #ffffff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  .nav-list a {
+    color: #213547;
+  }
+
+  .nav-list a:hover {
+    color: #646cff;
+  }
+
+  .lang-button {
+    color: #213547 !important;
+  }
+
+  .hamburger span {
+    background: #213547;
+  }
+
+  /* Mobile menu for light mode */
+  .nav-menu {
+    background-color: rgba(255, 255, 255, 0.98);
+  }
+
+  /* Hero section */
+  .hero-text p {
+    color: rgba(33, 53, 71, 0.8);
+  }
+
+  /* Code preview */
+  .code-preview {
+    background-color: #f8f9fa;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  }
+
+  .code-header {
+    background-color: #e9ecef;
+    color: rgba(33, 53, 71, 0.7);
+  }
+
+  .code-content {
+    color: #495057;
+  }
+
+  /* Stats cards */
+  .stat-card {
+    background-color: rgba(0, 0, 0, 0.05);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+  }
+
+  .stat-card p {
+    color: rgba(33, 53, 71, 0.8);
+  }
+
+  /* Services section */
+  .services-grid {
+    background-color: rgba(0, 0, 0, 0.02);
+  }
+
+  .service-card {
+    background-color: rgba(0, 0, 0, 0.05);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1), inset 0 1px 0 rgba(0, 0, 0, 0.05);
+  }
+
+  .service-card:hover {
+    box-shadow: 0 12px 30px rgba(100, 108, 255, 0.15),
+      0 6px 15px rgba(0, 0, 0, 0.1), inset 0 1px 0 rgba(0, 0, 0, 0.1);
+  }
+
+  .service-card p {
+    color: rgba(33, 53, 71, 0.8);
+  }
+
+  .drag-hint {
+    color: rgba(33, 53, 71, 0.5);
+  }
+
+  /* Contact section */
+  .contact-item {
+    color: rgba(33, 53, 71, 0.8);
+  }
+
+  .author-note {
+    background-color: rgba(100, 108, 255, 0.1);
+  }
+
+  .author-note p {
+    color: rgba(33, 53, 71, 0.9);
+  }
+
+  /* Contact form */
+  .contact-form {
+    background-color: rgba(0, 0, 0, 0.05);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+  }
+
+  .form-group label {
+    color: #213547;
+  }
+
+  .form-group input,
+  .form-group textarea {
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    background-color: rgba(0, 0, 0, 0.05);
+    color: #213547;
+  }
+
+  .upload-info small {
+    color: rgba(33, 53, 71, 0.6);
+  }
+
+  /* Footer */
+  footer {
+    background-color: #ffffff;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+  }
+
+  .footer-section a {
+    color: rgba(33, 53, 71, 0.7);
+  }
+
+  .footer-section a:hover {
+    color: #646cff;
+  }
+
+  .footer-bottom {
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+  }
+
+  .footer-bottom p {
+    color: rgba(33, 53, 71, 0.6);
+  }
+
+  /* Loading spinner for light mode */
+  .loading-spinner {
+    color: #646cff;
+  }
+}
